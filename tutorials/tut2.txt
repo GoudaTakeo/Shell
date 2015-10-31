@@ -1,0 +1,52 @@
+5. 
+
+a) Write a regexp to match C preprocessor commands in a C program.
+
+Ans: ^# with the assumption there's no whitespace or ^\s*# is there is whitespace.
+
+b) Write a regexp to match all the lines in a C program except preprocessor commands
+
+Ans: ^[^#]
+
+c) Write a regexp to find line in a C program with trailing white space - one or more white space at the end of line.
+
+Ans: \s+$
+
+d) Write a regexp to match the names Barry, Harry, Larry and Parry.
+
+Ans: Barry|Harry|Larry|Parry or [BHLP]arry
+
+e) Write a regexp to match a string containing the word hello followed later by the word world.
+
+Ans: hello.*world
+
+f) Write regexp to match the word calendar and all mis-spellings with 'a' replaced 'e' or vice-versa.
+
+Ans: c[ae]l[ae]nd[ae]r
+
+g) Write regexp to match a list of positive integers spearated by commas, e.g. 2,4,8,16,32.
+
+Ans: ([0-9]+,)*[0-9]+ or [0-9]+(,[0-9]+)*
+
+Note [0-9]+ is [0-9][0-9]*
+
+
+
+6. Give five reasons why this attempt to search a file for HTML paragraph and break tags may fail. Give egrep commands that will work.
+
+grep <p>|<br> /tmp/index.html
+
+Reason #1: < and > are shell meta characters so the shell will interpret them.
+
+Reason #2: | is not supported in grep, it's a feature of egrep.
+
+Reason #3: We may get upper case tags, like <P>.
+
+Reason #4: We may get whitespace in tags, like <p >
+
+Reason #5: <p class="lead_para"> tags like this will not be matched.
+
+
+We can use double/single quotes or backslashes to escape the metacharacters.
+
+So grep -E -iw "<(p|br)[^>]*>" /tmp/index.html
